@@ -1,10 +1,11 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from Tree_predictors_for_binary_classification.criterion.SplittingFunction import gini_score, entropy_score, information_gain, mse_score
-from Tree_predictors_for_binary_classification.criterion.StoppingFunction import max_depth_reached,min_samples_per_leaf,min_impurity_threshold
+from Tree_predictors_for_binary_classification.criterion.StoppingFunction import max_depth_reached, min_samples_per_leaf, min_impurity_threshold
 from Tree_predictors_for_binary_classification.TreeConstruction.TreePredictor import TreePredictor
 
 if __name__ == '__main__':
+    splitting_criterion = gini_score
     # hyper_parameter
     maxDepths=[5]
     min_samples= 5
@@ -28,7 +29,6 @@ if __name__ == '__main__':
     best_hyper_parameter = None
     best_predictor= None
     for param in maxDepths:
-        splitting_criterion = gini_score
         stopping_criterion = lambda X_stop, y_stop, depth: max_depth_reached(depth, param)
         # stopping_criterion = lambda X, y, depth: min_samples_per_leaf(y, param)
         #  stopping_criterion = lambda X, y, depth: min_impurity_threshold(X, y, depth,
