@@ -9,8 +9,8 @@ from Tree_predictors_for_binary_classification.TreeConstruction.TreePredictor im
 if __name__ == '__main__':
     # hyper_parameter
     splitting_criteria = [gini_score, entropy_score, information_gain]
-    maxDepths=list(range(1, 21))
-    min_samples= list(range(2, 21)) + list(range(25, 51, 5))
+    maxDepths=[list(range(1, 21))]
+    min_samples= [2, 3, 4, 5, 10, 15, 20, 30, 50]
     impurity_threshold = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     column_names = [
         "class", "cap-shape", "cap-surface", "cap-color", "bruises", "odor",
