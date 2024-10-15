@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from numpy import NaN
 from sklearn.model_selection import train_test_split
 from Tree_predictors_for_binary_classification.criterion.SplittingFunction import gini_score, entropy_score, information_gain, mse_score
 from Tree_predictors_for_binary_classification.criterion.StoppingFunction import max_depth_reached, min_samples_per_leaf, min_impurity_threshold
@@ -11,11 +12,6 @@ if __name__ == '__main__':
     maxDepths=list(range(1, 21))
     min_samples= list(range(2, 21)) + list(range(25, 51, 5))
     impurity_threshold = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-
-    # Load the mushroom dataset version 2
-    # data = pd.read_csv("../Tree_predictors_for_binary_classification/Dataset/MushroomDataset/secondary_data.csv",
-    #                    delimiter=';')
-    # Load the mushroom dataset version 3
     column_names = [
         "class", "cap-shape", "cap-surface", "cap-color", "bruises", "odor",
         "gill-attachment", "gill-spacing", "gill-size", "gill-color",
@@ -24,14 +20,16 @@ if __name__ == '__main__':
         "ring-number", "ring-type", "spore-print-color", "population", "habitat"
     ]
 
+    # Load the mushroom dataset version 2
+    # data = pd.read_csv("../Tree_predictors_for_binary_classification/Dataset/MushroomDataset/secondary_data.csv",
+    #                    delimiter=';')
+    # Load the mushroom dataset version 3
     data = pd.read_csv('../Tree_predictors_for_binary_classification/Dataset/mushroom/mushroom.data',
                        header=None, names=column_names)
-    data.replace("?", pd.NA, inplace=True)
 
     # Preview the dataset
     print(data.head())
     print(data.info())
-    print(data[5692])
 
     target_column='class'
     X = data.drop(columns=target_column).values
@@ -73,6 +71,7 @@ if __name__ == '__main__':
         plt.title(f'Training and Validation Error vs Max Depth using split:{split_criterion.__name__}')
         plt.legend()
         plt.grid(True)
+        plt.savefig(f'../Tree_predictors_for_binary_classification/results/{split_criterion.__name__}_graphic.jpg')
         plt.show()
 
     # Final evaluation on the test set

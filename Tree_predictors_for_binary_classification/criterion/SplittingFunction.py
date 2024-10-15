@@ -37,7 +37,9 @@ def entropy_score(y_left, y_right):
 
 def information_gain(y_left, y_right):
     """Calculate the Information Gain from a split."""
-    y= np.concatenate(y_left, y_right)
+    y_left = np.asarray(y_left)
+    y_right = np.asarray(y_right)
+    y= np.concatenate((y_left, y_right))
     return entropy(y) - (len(y_left) / len(y)) * entropy(y_left) - (len(y_right) / len(y)) * entropy(y_right)
 
 
