@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from Tree_predictors_for_binary_classification.TreeConstruction.TreeNode import TreeNode
 
 
@@ -38,8 +39,8 @@ class TreePredictor:
         - A TreeNode representing the root of the subtree.
         """
         # Check stopping criteria
-        if self.stopping_criterion(X, y, depth):
-            return TreeNode(is_leaf=True, class_label=self._most_common_class(y))
+        if len(y) < 2 or self.stopping_criterion(X, y, depth):
+            return TreeNode(is_leaf=True, class_label=self._most_common_class(y) if len(y) > 0 else None)
 
         # Determine the best split
         best_criteria= self._best_split(X, y)
@@ -48,6 +49,8 @@ class TreePredictor:
             return TreeNode(is_leaf=True, class_label=self._most_common_class(y))
 
         left_indices, right_indices = self._split_data(X, y, best_criteria)
+        if len(left_indices) <= 1 or len(right_indices) <= 1:
+            return TreeNode(is_leaf=True, class_label=self._most_common_class(y) if len(y) > 0 else None)
 
         # Recursively grow the left and right subtrees
         left_child = self._grow_tree(X[left_indices], y[left_indices], depth + 1)
@@ -89,14 +92,14 @@ class TreePredictor:
                             best_score = score
                             best_criteria = lambda x: x[feature_index] <= threshold
             else:  # Categorical feature
-                unique_values = np.unique(feature_values)
+                unique_values = pd.unique(feature_values)
                 for category in unique_values:
-                    left_indices = (feature_values == category) & (~np.isnan(feature_values))
-                    right_indices = (feature_values != category) & (~np.isnan(feature_values))
+                    left_indices = (feature_values == category) & (~pd.isna(feature_values))
+                    right_indices = (feature_values != category) & (~pd.isna(feature_values))
                     if np.any(left_indices) and np.any(right_indices):
                         left_y = y[left_indices]
                         right_y = y[right_indices]
-                        score = self.splitting_criterion(y, left_y, right_y)
+                        score = self.splitting_criterion(left_y, right_y)
                         if score < best_score:
                             best_score = score
                             best_criteria = lambda x: x[feature_index] == category
@@ -115,8 +118,8 @@ class TreePredictor:
         Returns:
         - Indices of the left and right splits.
         """
-        left_indices = np.array([i for i in range(len(X)) if criteria(X[i])])
-        right_indices = np.array([i for i in range(len(X)) if not criteria(X[i])])
+        left_indices = np.array([criteria(X[i]) for i in range(len(X))])
+        right_indices = ~left_indices
         return left_indices, right_indices
 
     def _most_common_class(self, y):
