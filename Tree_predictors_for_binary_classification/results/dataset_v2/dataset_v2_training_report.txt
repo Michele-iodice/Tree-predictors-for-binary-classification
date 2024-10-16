@@ -1,0 +1,66 @@
+META:
+Trained a Tree with 3 different split criterion and maxDepth as stopping criterion
+-----------------------------------------------------------------------------------
+Split Criterion = gini_score, Param = 1: Train Error = 0.44, Validation error = 0.45
+Split Criterion = gini_score, Param = 2: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 3: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 4: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 5: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 6: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 7: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 8: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 9: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 10: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 11: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 12: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 13: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 14: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 15: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 16: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 17: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 18: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 19: Train Error = 0.42, Validation error = 0.43
+Split Criterion = gini_score, Param = 20: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 1: Train Error = 0.44, Validation error = 0.45
+Split Criterion = entropy_score, Param = 2: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 3: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 4: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 5: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 6: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 7: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 8: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 9: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 10: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 11: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 12: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 13: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 14: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 15: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 16: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 17: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 18: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 19: Train Error = 0.42, Validation error = 0.43
+Split Criterion = entropy_score, Param = 20: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 1: Train Error = 0.44, Validation error = 0.45
+Split Criterion = information_gain, Param = 2: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 3: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 4: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 5: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 6: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 7: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 8: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 9: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 10: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 11: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 12: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 13: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 14: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 15: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 16: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 17: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 18: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 19: Train Error = 0.42, Validation error = 0.43
+Split Criterion = information_gain, Param = 20: Train Error = 0.42, Validation error = 0.43
+-------------------------------------------------------------
+The best param value is: 2, Validation error = 0.43
+Test Accuracy: 0.57

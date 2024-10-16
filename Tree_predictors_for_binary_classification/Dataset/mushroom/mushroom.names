@@ -139,7 +139,7 @@
     22. habitat:                  grasses=g,leaves=l,meadows=m,paths=p,
                                   urban=u,waste=w,woods=d
 
-8. Missing Attribute Values: 2480 of them (denoted by "?"), all for
+8. Missing Attribute Values: 2480 of them (denoted by ""), all for
    attribute #11.
 
 9. Class Distribution: 

@@ -1,17 +1,18 @@
-from Tree_predictors_for_binary_classification.criterion.SplittingFunction import entropy_score
+from Tree_predictors_for_binary_classification.criterion.SplittingFunction import entropy
 
 
-def max_depth_reached(depth, max_depth):
+def max_depth_reached(y, depth, max_depth):
     """Check if maximum depth has been reached."""
     return depth >= max_depth
 
 
-def min_samples_per_leaf(y, min_samples_leaf):
+def min_samples_per_leaf(y, depth, min_samples_leaf):
     """Check if the leaf has a minimum number of samples."""
-    return len(y) < min_samples_leaf
+    print(f"Current depth: {depth}, Number of samples: {len(y)}, Min samples per leaf: {min_samples_leaf}")
+    return len(y) <= min_samples_leaf
 
 
-def min_impurity_threshold(X, y, depth, impurity_threshold=0.1):
+def min_impurity_threshold(y, depth, impurity_threshold):
     """
     Stopping criterion based on minimum impurity threshold.
 
@@ -24,5 +25,5 @@ def min_impurity_threshold(X, y, depth, impurity_threshold=0.1):
     Returns:
     - True if stopping criterion is met, otherwise False.
     """
-    current_impurity = entropy_score(y, y)  # Or use any impurity measure
-    return current_impurity < impurity_threshold
+    current_impurity = entropy(y)  # Or use any impurity measure
+    return current_impurity <= impurity_threshold

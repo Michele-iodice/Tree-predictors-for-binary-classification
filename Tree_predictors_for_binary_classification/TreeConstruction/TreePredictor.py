@@ -1,10 +1,12 @@
 import numpy as np
 import pandas as pd
 from Tree_predictors_for_binary_classification.TreeConstruction.TreeNode import TreeNode
+from Tree_predictors_for_binary_classification.criterion.SplittingFunction import entropy
 
 
 class TreePredictor:
-    def __init__(self, splitting_criterion, stopping_criterion):
+    def __init__(self, splitting_criterion, stopping_criterion, stopping_param,
+                 maxDepth=980, minSamplesParLeaf=2, minImpurityThreshold=0.1):
         """
         Initializes the TreePredictor.
 
@@ -15,6 +17,10 @@ class TreePredictor:
         self.root = None  # Root node of the tree
         self.splitting_criterion = splitting_criterion  # Function for splitting
         self.stopping_criterion = stopping_criterion  # Function for stopping
+        self.stopping_param = stopping_param  # param for stopping Function
+        self.maxDepth = maxDepth
+        self.minSamplesParLeaf = minSamplesParLeaf
+        self.minImpurityThreshold = minImpurityThreshold
 
     def fit(self, X, y):
         """
@@ -39,7 +45,10 @@ class TreePredictor:
         - A TreeNode representing the root of the subtree.
         """
         # Check stopping criteria
-        if len(y) < 2 or self.stopping_criterion(X, y, depth):
+        if self.stopping_criterion(y, depth, self.stopping_param) or len(np.unique(y)) == 1:
+            return TreeNode(is_leaf=True, class_label=self._most_common_class(y) if len(y) > 0 else None)
+
+        if depth >= self.maxDepth or len(y) <= self.minSamplesParLeaf or entropy(y) < self.minImpurityThreshold:
             return TreeNode(is_leaf=True, class_label=self._most_common_class(y) if len(y) > 0 else None)
 
         # Determine the best split
@@ -79,27 +88,35 @@ class TreePredictor:
 
         for feature_index in range(X.shape[1]):
             feature_values = X[:, feature_index]
+
             if np.issubdtype(feature_values.dtype, np.number):  # Numerical feature
                 unique_values = np.unique(feature_values)
+
                 for threshold in unique_values:
                     left_indices = (feature_values <= threshold) & (~np.isnan(feature_values))
                     right_indices = (feature_values > threshold) & (~np.isnan(feature_values))
-                    if np.any(left_indices) and np.any(right_indices):
-                        left_y = y[left_indices]
-                        right_y = y[right_indices]
-                        score = self.splitting_criterion(y, left_y, right_y)
-                        if score < best_score:
-                            best_score = score
-                            best_criteria = lambda x: x[feature_index] <= threshold
-            else:  # Categorical feature
-                unique_values = pd.unique(feature_values)
-                for category in unique_values:
-                    left_indices = (feature_values == category) & (~pd.isna(feature_values))
-                    right_indices = (feature_values != category) & (~pd.isna(feature_values))
+
                     if np.any(left_indices) and np.any(right_indices):
                         left_y = y[left_indices]
                         right_y = y[right_indices]
                         score = self.splitting_criterion(left_y, right_y)
+
+                        if score < best_score:
+                            best_score = score
+                            best_criteria = lambda x: x[feature_index] <= threshold
+
+            else:  # Categorical feature
+                unique_values = pd.unique(feature_values)
+
+                for category in unique_values:
+                    left_indices = (feature_values == category) & (~pd.isna(feature_values))
+                    right_indices = (feature_values != category) & (~pd.isna(feature_values))
+
+                    if np.any(left_indices) and np.any(right_indices):
+                        left_y = y[left_indices]
+                        right_y = y[right_indices]
+                        score = self.splitting_criterion(left_y, right_y)
+
                         if score < best_score:
                             best_score = score
                             best_criteria = lambda x: x[feature_index] == category
