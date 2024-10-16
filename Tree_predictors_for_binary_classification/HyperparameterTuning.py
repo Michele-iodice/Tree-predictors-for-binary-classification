@@ -13,11 +13,12 @@ def hyperParameterTuning(X, y, splitting_criteria, stopping_criteria, maxDepths,
     best_split_criteria = None
     best_stop_criteria = None
     for split_criterion in splitting_criteria:
-        val_errors = []
-        train_errors = []
         for stopping_criterion in stopping_criteria:
+            val_errors = []
+            train_errors = []
             params = maxDepths
             params_name="max depths"
+
             if stopping_criterion.__name__ == "min_samples_per_leaf":
                 params=min_samples
                 params_name = "min samples"

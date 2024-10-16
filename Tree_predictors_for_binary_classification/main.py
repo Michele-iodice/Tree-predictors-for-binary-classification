@@ -1,10 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import KFold
-from sklearn.metrics import accuracy_score
-
 from Tree_predictors_for_binary_classification.HyperparameterTuning import hyperParameterTuning, fix_hyperParameterTuning
 from Tree_predictors_for_binary_classification.criterion.SplittingFunction import gini_score, entropy_score, information_gain, mse_score
 from Tree_predictors_for_binary_classification.criterion.StoppingFunction import max_depth_reached, min_samples_per_leaf, min_impurity_threshold

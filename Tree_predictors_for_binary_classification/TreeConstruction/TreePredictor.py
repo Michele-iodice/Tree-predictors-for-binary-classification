@@ -6,7 +6,7 @@ from Tree_predictors_for_binary_classification.criterion.SplittingFunction impor
 
 class TreePredictor:
     def __init__(self, splitting_criterion, stopping_criterion, stopping_param,
-                 maxDepth=980, minSamplesParLeaf=2, minImpurityThreshold=0.1):
+                 maxDepth=900, minSamplesParLeaf=2, minImpurityThreshold=0.1):
         """
         Initializes the TreePredictor.
 
