@@ -8,7 +8,6 @@ def max_depth_reached(y, depth, max_depth):
 
 def min_samples_per_leaf(y, depth, min_samples_leaf):
     """Check if the leaf has a minimum number of samples."""
-    print(f"Current depth: {depth}, Number of samples: {len(y)}, Min samples per leaf: {min_samples_leaf}")
     return len(y) <= min_samples_leaf
 
 

@@ -10,7 +10,7 @@ from Tree_predictors_for_binary_classification.TreeConstruction.TreePredictor im
 if __name__ == '__main__':
     # hyper_parameter
     splitting_criteria = [gini_score, entropy_score, information_gain, mse_score]
-    stopping_criterion = min_impurity_threshold
+    stopping_criterion = min_samples_per_leaf
     maxDepths=list(range(1, 21))
     min_samples= [2, 3, 4, 5, 10, 15, 20, 30, 50]
     impurity_threshold = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     for split_criterion in splitting_criteria:
         val_errors = []
         train_errors = []
-        for param in impurity_threshold:
+        for param in min_samples:
             predictor = TreePredictor(splitting_criterion=split_criterion,
                                       stopping_criterion=stopping_criterion,
                                       stopping_param=param)
@@ -65,16 +65,16 @@ if __name__ == '__main__':
                 best_split_criteria = split_criterion
 
         plt.figure(figsize=(10, 6))
-        plt.plot(impurity_threshold, train_errors, label='Training Error', color='blue', marker='o', linestyle='-')
-        plt.plot(impurity_threshold, val_errors, label='Validation Error', color='red', marker='o', linestyle='-')
-        plt.xlabel('Min impurity threshold')
+        plt.plot(min_samples, train_errors, label='Training Error', color='blue', marker='o', linestyle='-')
+        plt.plot(min_samples, val_errors, label='Validation Error', color='red', marker='o', linestyle='-')
+        plt.xlabel('Min samples par leaf')
         plt.ylabel('Error')
         plt.title(
-            f'Training and Validation Error vs Max Depth using split:{split_criterion.__name__},'
+            f'Training and Validation Error vs Min samples par leaf using split:{split_criterion.__name__},'
             f' and stopping:{stopping_criterion.__name__}')
         plt.legend()
         plt.grid(True)
-        plt.savefig(f'../Tree_predictors_for_binary_classification/results/dataset_v3/min_impurity_threshold/'
+        plt.savefig(f'../Tree_predictors_for_binary_classification/results/dataset_v3/min_samples/'
                     f'{split_criterion.__name__}_graphic.jpg')
         plt.show()
 
