@@ -99,9 +99,7 @@
     determining the edibility of a mushroom; no rule like ``leaflets
     three, let it be'' for Poisonous Oak and Ivy.
 
-5. Number of Instances: 8124
-
-6. Number of Attributes: 22 (all nominally valued)
+5.
 
 7. Attribute Information: (classes: edible=e, poisonous=p)
      1. cap-shape:                bell=b,conical=c,convex=x,flat=f,
@@ -139,7 +137,7 @@
     22. habitat:                  grasses=g,leaves=l,meadows=m,paths=p,
                                   urban=u,waste=w,woods=d
 
-8. Missing Attribute Values: 2480 of them (denoted by ""), all for
+8. Missing Attribute Values: 2480 of them (denoted by ?), all for
    attribute #11.
 
 9. Class Distribution: 

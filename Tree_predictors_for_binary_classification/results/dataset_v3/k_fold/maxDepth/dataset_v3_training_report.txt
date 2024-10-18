@@ -1,0 +1,129 @@
+META:
+Trained a Tree with gini score as split criterion and maxDepth as stopping criterion
+Using K-fold kross validation with k=5
+
+-------------------------------------------------------------------------------------
+Fold 1: Train Error = 0.44, Validation Error = 0.45
+Fold 2: Train Error = 0.48, Validation Error = 0.49
+Fold 3: Train Error = 0.44, Validation Error = 0.45
+Fold 4: Train Error = 0.44, Validation Error = 0.41
+Fold 5: Train Error = 0.44, Validation Error = 0.44
+Param = 1: Train Error = 0.45, Validation error = 0.45
+Fold 1: Train Error = 0.44, Validation Error = 0.45
+Fold 2: Train Error = 0.44, Validation Error = 0.44
+Fold 3: Train Error = 0.44, Validation Error = 0.45
+Fold 4: Train Error = 0.44, Validation Error = 0.41
+Fold 5: Train Error = 0.44, Validation Error = 0.44
+Param = 2: Train Error = 0.44, Validation error = 0.44
+Fold 1: Train Error = 0.33, Validation Error = 0.34
+Fold 2: Train Error = 0.42, Validation Error = 0.43
+Fold 3: Train Error = 0.33, Validation Error = 0.35
+Fold 4: Train Error = 0.34, Validation Error = 0.32
+Fold 5: Train Error = 0.33, Validation Error = 0.33
+Param = 3: Train Error = 0.35, Validation error = 0.35
+Fold 1: Train Error = 0.33, Validation Error = 0.34
+Fold 2: Train Error = 0.33, Validation Error = 0.32
+Fold 3: Train Error = 0.33, Validation Error = 0.35
+Fold 4: Train Error = 0.34, Validation Error = 0.32
+Fold 5: Train Error = 0.33, Validation Error = 0.33
+Param = 4: Train Error = 0.33, Validation error = 0.33
+Fold 1: Train Error = 0.33, Validation Error = 0.34
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.33, Validation Error = 0.35
+Fold 4: Train Error = 0.34, Validation Error = 0.32
+Fold 5: Train Error = 0.33, Validation Error = 0.33
+Param = 5: Train Error = 0.33, Validation error = 0.33
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 6: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 7: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 8: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 9: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 10: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 11: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 12: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 13: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 14: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 15: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 16: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 17: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 18: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 19: Train Error = 0.31, Validation error = 0.31
+Fold 1: Train Error = 0.31, Validation Error = 0.32
+Fold 2: Train Error = 0.31, Validation Error = 0.29
+Fold 3: Train Error = 0.31, Validation Error = 0.33
+Fold 4: Train Error = 0.31, Validation Error = 0.30
+Fold 5: Train Error = 0.31, Validation Error = 0.30
+Param = 20: Train Error = 0.31, Validation error = 0.31
+----------------------------------------------------------------------------------------
+
+The best param value is: 6, Validation error = 0.31
+Test Accuracy: 0.68

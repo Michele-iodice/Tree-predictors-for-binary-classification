@@ -4,7 +4,7 @@ from sklearn.model_selection import KFold
 from Tree_predictors_for_binary_classification.TreeConstruction.TreePredictor import TreePredictor
 
 
-def hyperParameterTuning(X, y, splitting_criteria, stopping_criteria, maxDepths, min_samples, impurity_threshold):
+def hyperParameterTuning(X, y, splitting_criteria, stopping_criteria, maxDepths, min_samples, impurity_threshold, path):
 
     kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
@@ -49,16 +49,18 @@ def hyperParameterTuning(X, y, splitting_criteria, stopping_criteria, maxDepths,
                 avg_val_error = np.mean(fold_val_errors)
                 val_errors.append(avg_val_error)
                 train_errors.append(avg_train_error)
-                print(f"Split Criterion = {split_criterion.__name__}, Param = {param}: "
-                      f"Train Error = {avg_train_error:.2f}, Validation error = {avg_val_error:.2f}")
+                print(f"Split Criterion = {split_criterion.__name__},Stop Criterion = {stopping_criterion.__name__},"
+                      f" Param = {param}:\nTrain Error = {avg_train_error:.2f}, Validation error = {avg_val_error:.2f}")
 
                 if avg_val_error < best_val_error:
                     best_val_error = avg_val_error
                     best_hyper_parameter = param
                     best_split_criteria = split_criterion
                     best_stop_criteria = stopping_criterion
+            print(fold_train_errors)
 
             plt.figure(figsize=(10, 6))
+            print(train_errors)
             plt.plot(params, train_errors, label='Training Error', color='blue', marker='o', linestyle='-')
             plt.plot(params, val_errors, label='Validation Error', color='red', marker='o', linestyle='-')
             plt.xlabel(f'{params_name}')
@@ -68,14 +70,18 @@ def hyperParameterTuning(X, y, splitting_criteria, stopping_criteria, maxDepths,
                 f' and stopping:{stopping_criterion.__name__}')
             plt.legend()
             plt.grid(True)
-            plt.savefig(f'../Tree_predictors_for_binary_classification/results/dataset_v3/k_fold/'
-                        f'{split_criterion.__name__}AND{stopping_criterion.__name__}_graphic.jpg')
+            fig_path = path + f'{split_criterion.__name__}AND{stopping_criterion.__name__}_graphic.jpg'
+            plt.savefig(fig_path)
             plt.show()
+
+    print(f"The best splitting and stopping function are split: {best_split_criteria.__name__}, "
+          f"Stopping= {best_stop_criteria.__name__}")
+    print(f"The best param value is: {best_hyper_parameter}, Validation error = {best_val_error:.2f}")
 
     return best_val_error, best_hyper_parameter, best_split_criteria, best_stop_criteria
 
 
-def fix_hyperParameterTuning(X, y, splitting_criteria, stopping_criteria, params):
+def fix_hyperParameterTuning(X, y, splitting_criteria, stopping_criteria, params, path):
 
     kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
@@ -128,8 +134,10 @@ def fix_hyperParameterTuning(X, y, splitting_criteria, stopping_criteria, params
         f' and stopping:{stopping_criteria.__name__}')
     plt.legend()
     plt.grid(True)
-    plt.savefig(f'../Tree_predictors_for_binary_classification/results/dataset_v3/k_fold/'
-                f'{splitting_criteria.__name__}AND{stopping_criteria.__name__}_graphic.jpg')
+    fig_path=path+f'{splitting_criteria.__name__}AND{stopping_criteria.__name__}_graphic.jpg'
+    plt.savefig(fig_path)
     plt.show()
+
+    print(f"The best param value is: {best_hyper_parameter}, Validation error = {best_val_error:.2f}")
 
     return best_val_error, best_hyper_parameter, splitting_criteria, stopping_criteria

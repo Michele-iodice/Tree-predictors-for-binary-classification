@@ -9,8 +9,9 @@ from Tree_predictors_for_binary_classification.TreeConstruction.TreePredictor im
 
 if __name__ == '__main__':
     # hyper_parameter
+    path= '../Tree_predictors_for_binary_classification/results/dataset_v3/k_fold/allParameter_tuning/'
     splitting_criteria = [gini_score, entropy_score, information_gain, mse_score]
-    stopping_criteria = [max_depth_reached, min_samples_per_leaf, min_impurity_threshold]
+    stopping_criteria = [min_samples_per_leaf, max_depth_reached,  min_impurity_threshold]
     maxDepths=list(range(1, 21))
     min_samples= [2, 3, 4, 5, 10, 15, 20, 30, 50]
     impurity_threshold = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
@@ -41,16 +42,13 @@ if __name__ == '__main__':
 
     # tuning all the hyper-parameter
     best_val_error, best_hyper_parameter, best_split_criteria, best_stop_criteria=hyperParameterTuning(
-        X, y, splitting_criteria, stopping_criteria, maxDepths, min_samples, impurity_threshold)
+       X, y, splitting_criteria, stopping_criteria, maxDepths, min_samples, impurity_threshold, path)
 
     # tuning with a fixed splitting and stopping function
     # best_val_error, best_hyper_parameter, best_split_criteria, best_stop_criteria = fix_hyperParameterTuning(
-    #   X, y, gini_score, max_depth_reached, maxDepths)
+    #   X, y, gini_score, max_depth_reached, maxDepths, path)
 
     # Final evaluation on the test set
-    print(f"The best splitting and stopping function are split: {best_split_criteria.__name__}, "
-          f"Stopping= {best_stop_criteria.__name__}")
-    print(f"The best param value is: {best_hyper_parameter}, Validation error = {best_val_error:.2f}")
     best_predictor = TreePredictor(splitting_criterion=best_split_criteria,
                                    stopping_criterion=best_stop_criteria,
                                    stopping_param=best_hyper_parameter)
@@ -61,4 +59,5 @@ if __name__ == '__main__':
     plt.bar(['Validation Error', 'Test Accuracy'], [best_val_error, test_accuracy], color=['red', 'green'])
     plt.ylabel('Error/Accuracy')
     plt.title(f'Best Validation Error vs Test Accuracy (Param = {best_hyper_parameter})')
+    plt.savefig(path+'test_report.jpg')
     plt.show()

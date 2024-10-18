@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from numpy import NaN
 from sklearn.model_selection import train_test_split
-from Tree_predictors_for_binary_classification.HyperparameterTuning import hyperParameterTuning, fix_hyperParameterTuning
 from Tree_predictors_for_binary_classification.criterion.SplittingFunction import gini_score, entropy_score, information_gain, mse_score
 from Tree_predictors_for_binary_classification.criterion.StoppingFunction import max_depth_reached, min_samples_per_leaf, min_impurity_threshold
 from Tree_predictors_for_binary_classification.TreeConstruction.TreePredictor import TreePredictor
@@ -13,7 +12,7 @@ if __name__ == '__main__':
     # hyper_parameter
     splitting_criteria = gini_score
     stopping_criteria = max_depth_reached
-    maxDepth = 6
+    maxDepth = 5
     column_names = [
         "class", "cap-shape", "cap-surface", "cap-color", "bruises", "odor",
         "gill-attachment", "gill-spacing", "gill-size", "gill-color",
@@ -41,7 +40,7 @@ if __name__ == '__main__':
     fold_val_errors = []
     fold_train_errors = []
     fold = 1
-    for train_index, val_index in kf.split(X):
+    for train_index, val_index in kf.split(X_train_val):
         X_train, X_val = X[train_index], X[val_index]
         y_train, y_val = y[train_index], y[val_index]
         predictor = TreePredictor(splitting_criterion=splitting_criteria,
@@ -60,19 +59,22 @@ if __name__ == '__main__':
     avg_val_error = np.mean(fold_val_errors)
 
     print(f"Train Error = {avg_train_error:.2f}, Validation error = {avg_val_error:.2f}")
-    plt.figure(figsize=(10, 6))
-    plt.plot(list(range(1, fold)), fold_train_errors, label='Training Error', color='blue', marker='o', linestyle='-')
-    plt.plot(list(range(1, fold)), fold_val_errors, label='Validation Error', color='red', marker='o', linestyle='-')
-    plt.xlabel('Fold')
-    plt.ylabel('Error')
-    plt.title(f'Training and Validation Error')
-    plt.legend()
-    plt.grid(True)
-    plt.savefig('../TreeConstruction/train_graphic.jpg')
-    plt.show()
+
     test_predictor = TreePredictor(splitting_criterion=splitting_criteria,
                                    stopping_criterion=stopping_criteria,
                                    stopping_param=maxDepth)
     test_predictor.fit(X_train_val, y_train_val)
     test_accuracy = test_predictor.evaluate(X_test, y_test)
     print(f"Test Accuracy: {test_accuracy:.2f}")
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(list(range(1, fold)), fold_train_errors, label='Training Error', color='blue', marker='o', linestyle='-')
+    plt.plot(list(range(1, fold)), fold_val_errors, label='Validation Error', color='red', marker='o', linestyle='-')
+    plt.xlabel('Fold')
+    plt.ylabel('Error')
+    plt.title(f'Train and Validation error report')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(f'../results/dataset_v3/train_result/'
+                f'{splitting_criteria.__name__}AND{stopping_criteria.__name__}train_graphic.jpg')
+    plt.show()
