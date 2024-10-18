@@ -33,7 +33,6 @@ if __name__ == '__main__':
     X = data.drop(columns=target_column).values
     y = (data[target_column] == 'p').astype(int).values
     X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.25, random_state=42)
 
     kf = KFold(n_splits=5, shuffle=True, random_state=42)
 

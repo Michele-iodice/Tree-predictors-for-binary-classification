@@ -161,7 +161,12 @@ class TreePredictor:
         Returns:
         - Predicted class labels.
         """
-        return np.array([self._predict_sample(sample, self.root) for sample in X])
+        predictions=[]
+        for sample in X:
+            prediction=self._predict_sample(sample, self.root)
+            if prediction is not None:
+                predictions.append(prediction)
+        return np.array(predictions)
 
     def _predict_sample(self, sample, node):
         """
@@ -174,10 +179,15 @@ class TreePredictor:
         Returns:
         - Predicted class label.
         """
+        if node is None:
+            return None
+
         if node.is_leaf:
             return node.class_label
 
         # Determine the child node to follow
+        if node.decision_function is None:
+            return None
         if node.decision_function(sample):
             return self._predict_sample(sample, node.left)
         else:

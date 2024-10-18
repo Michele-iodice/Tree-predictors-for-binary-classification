@@ -1,3 +1,5 @@
+from collections import Counter
+
 import numpy as np
 import pandas as pd
 import math
@@ -5,11 +7,11 @@ import matplotlib as plt
 from sklearn.model_selection import train_test_split, GridSearchCV
 from Tree_predictors_for_binary_classification.TreeConstruction.TreePredictor import TreePredictor
 from Tree_predictors_for_binary_classification.criterion.SplittingFunction import gini_score
-from Tree_predictors_for_binary_classification.criterion.StoppingFunction import min_samples_per_leaf
+from Tree_predictors_for_binary_classification.criterion.StoppingFunction import max_depth_reached
 
 
 class RandomForest:
-    def __init__(self, n_trees=100, max_features=None, min_samples_split=2):
+    def __init__(self, n_trees=100, max_features=None, maxDepths=5):
         """
         Constructor to initialize the Random Forest.
 
@@ -20,7 +22,7 @@ class RandomForest:
         """
         self.n_trees = n_trees
         self.max_features = max_features
-        self.min_samples_split = min_samples_split
+        self.maxDepths = maxDepths
         self.trees = []
 
     def fit(self, X, y):
@@ -41,7 +43,7 @@ class RandomForest:
             else:
                 raise ValueError(f"Unknown value for max_features: {self.max_features}")
         else:
-            max_features = min(self.max_features*n_features, n_features)
+            max_features = min(int(self.max_features*n_features), n_features)
 
         for _ in range(self.n_trees):
             # Bootstrap sampling
@@ -61,8 +63,8 @@ class RandomForest:
 
             # Create and train the decision tree
             tree = TreePredictor(splitting_criterion=gini_score,
-                                 stopping_criterion=min_samples_per_leaf,
-                                 stopping_param=self.min_samples_split)
+                                 stopping_criterion=max_depth_reached,
+                                 stopping_param=self.maxDepths)
             tree.fit(X_sample, y_sample)
             self.trees.append((tree, feature_indices))  # Store the tree along with the feature indices used
 
@@ -77,15 +79,31 @@ class RandomForest:
         - predictions (numpy array): Predicted class labels.
         """
         # Collect predictions from each tree
-        predictions = np.zeros((X.shape[0], self.n_trees), dtype=object)
+        predictions = np.zeros(self.n_trees, dtype=object)
 
         for i, (tree, feature_indices) in enumerate(self.trees):
             # Only use the features that the tree was trained on
             X_subset = X[:, feature_indices]
-            predictions[:, i] = tree.predict(X_subset)
+            if X_subset is not None and tree is not None:
+                predictions[i] = tree.predict(X_subset)
 
         # Majority voting
-        return np.array([np.bincount(pred).argmax() for pred in predictions.T])
+        return np.array([Counter(pred).most_common(1)[0][0] for pred in predictions.T])
+
+    def training_error(self, X, y):
+        """
+        Computes the training error according to 0-1 loss.
+
+        Parameters:
+        - X: Features of the training dataset.
+        - y: True labels of the training dataset.
+
+        Returns:
+        - Training error rate.
+        """
+        predictions = self.predict(X)
+        incorrect_predictions = np.sum(predictions != y)
+        return incorrect_predictions / len(y)
 
 
 def grid_search_random_forest(X_train, y_train, X_val, y_val, params):
@@ -96,11 +114,11 @@ def grid_search_random_forest(X_train, y_train, X_val, y_val, params):
     # Loop over the hyperparameter combinations
     for n_trees in params['n_trees']:
         for max_features in params['max_features']:
-            for min_samples_split in params['min_samples_split']:
+            for maxDepths in params['maxDepths']:
                 # Create a new RandomForest with current hyperparameters
                 rf = RandomForest(n_trees=n_trees,
                                   max_features=max_features,
-                                  min_samples_split=min_samples_split)
+                                  maxDepths=maxDepths)
 
                 # Train the random forest on the training data
                 rf.fit(X_train, y_train)
@@ -109,7 +127,7 @@ def grid_search_random_forest(X_train, y_train, X_val, y_val, params):
                 validation_error = rf.training_error(X_val, y_val)  # 0-1 loss or another metric
 
                 print(
-                    f'Params: n_trees={n_trees}, max_features={max_features}, min_samples_split={min_samples_split}')
+                    f'Params: n_trees={n_trees}, max_features={max_features}, max_Depths={maxDepths}')
                 print(f'Validation Error: {validation_error}')
 
                 # Keep track of the best parameters (assuming you're minimizing error)
@@ -118,13 +136,13 @@ def grid_search_random_forest(X_train, y_train, X_val, y_val, params):
                     best_params = {
                         'n_trees': n_trees,
                         'max_features': max_features,
-                        'min_samples_split': min_samples_split
+                        'maxDepths': maxDepths
                     }
                     # Store results
                     results.append({
                         'n_trees': n_trees,
                         'max_features': max_features,
-                        'min_samples_split': min_samples_split,
+                        'maxDepths': maxDepths,
                         'validation_error': validation_error
                     })
 
@@ -137,7 +155,7 @@ if __name__ == "__main__":
     param_grid = {
         'n_trees': [100, 200, 500],
         'max_features': ['sqrt', 'log2', 0.5],  # 50% of features as another option
-        'min_samples_split': [2, 5, 10, 20, 50, 100]
+        'maxDepths': [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20]
     }
 
     # Load the dataset
@@ -170,7 +188,7 @@ if __name__ == "__main__":
     # Final model using the best hyperparameters
     final_rf = RandomForest(n_trees=best_hyperparameters['n_trees'],
                             max_features=best_hyperparameters['max_features'],
-                            min_samples_split=best_hyperparameters['min_samples_split'])
+                            maxDepths=best_hyperparameters['maxDepths'])
 
     # Train the final model
     final_rf.fit(X_train, y_train)

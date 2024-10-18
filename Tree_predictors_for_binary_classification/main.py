@@ -38,15 +38,14 @@ if __name__ == '__main__':
     X = data.drop(columns=target_column).values
     y = (data[target_column] == 'p').astype(int).values
     X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.25, random_state=42)
 
     # tuning all the hyper-parameter
     best_val_error, best_hyper_parameter, best_split_criteria, best_stop_criteria=hyperParameterTuning(
-       X, y, splitting_criteria, stopping_criteria, maxDepths, min_samples, impurity_threshold, path)
+       X_train_val, y_train_val, splitting_criteria, stopping_criteria, maxDepths, min_samples, impurity_threshold, path)
 
     # tuning with a fixed splitting and stopping function
     # best_val_error, best_hyper_parameter, best_split_criteria, best_stop_criteria = fix_hyperParameterTuning(
-    #   X, y, gini_score, max_depth_reached, maxDepths, path)
+    #   X_train_val, y_train_val, gini_score, max_depth_reached, maxDepths, path)
 
     # Final evaluation on the test set
     best_predictor = TreePredictor(splitting_criterion=best_split_criteria,
