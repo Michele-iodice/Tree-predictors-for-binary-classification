@@ -3,7 +3,7 @@ from collections import Counter
 import numpy as np
 import pandas as pd
 import math
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split, GridSearchCV
 from Tree_predictors_for_binary_classification.TreeConstruction.TreePredictor import TreePredictor
 from Tree_predictors_for_binary_classification.criterion.SplittingFunction import gini_score
@@ -197,6 +197,11 @@ if __name__ == "__main__":
     test_error = final_rf.training_error(X_test, y_test)  # Replace with actual evaluation method
     print(f'Test Error: {test_error}')
     # Plot results (for example, plot validation error for different n_trees)
+    results = [
+        {'n_trees': 100, 'validation_error': 0.15},
+        {'n_trees': 200, 'validation_error': 0.12},
+        {'n_trees': 500, 'validation_error': 0.10},
+    ]
     n_trees_values = [result['n_trees'] for result in result]
     validation_errors = [result['validation_error'] for result in result]
 
